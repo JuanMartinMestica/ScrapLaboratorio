@@ -7,21 +7,35 @@ package com.mycompany.scrap;
 
 import java.util.List;
 import java.util.concurrent.Callable;
+import org.jsoup.Connection;
+import org.jsoup.Jsoup;
 
 public class Tarea implements Callable<Resultado> {
 
-    private final String url;
+    private final String url = "https://www.conversormonedas.com/valor-peso-argentino.php";
     private final String tag;
     private List<String> titulos;
+    private final int nroTarea;
+    private final String nombreTarea;
+    private final Connection conexion;
 
-    public Tarea(String url, String tag) {
-        this.url = url;
-        this.tag = tag;
+    public Tarea(int numeroTarea, String tagPrecio, String tagTarea) {
+        this.tag = tagPrecio;
+        this.nroTarea = numeroTarea;
+        this.nombreTarea = tagTarea;
+        this.conexion = Jsoup.connect(url);
     }
 
     @Override
     public Resultado call() throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+   
+        System.out.println(Thread.currentThread().getName() + " Empezando tarea: ");
+        
+        
+        
+        
+        
+        return null;
     }
     
        
