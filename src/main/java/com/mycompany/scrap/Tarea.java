@@ -8,7 +8,7 @@ package com.mycompany.scrap;
 import java.util.List;
 import java.util.concurrent.Callable;
 
-public class Tarea implements Callable {
+public class Tarea implements Callable<Resultado> {
 
     private final String url;
     private final String tag;
@@ -20,7 +20,7 @@ public class Tarea implements Callable {
     }
 
     @Override
-    public Object call() throws Exception {
+    public Resultado call() throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
