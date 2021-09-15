@@ -5,12 +5,27 @@
  */
 package com.mycompany.scrap;
 
-public class Tarea implements Comparable {
+import java.util.List;
+import java.util.concurrent.Callable;
+
+public class Tarea implements Callable {
+
+    private final String url;
+    private final String tag;
+    private List<String> titulos;
+
+    public Tarea(String url, String tag) {
+        this.url = url;
+        this.tag = tag;
+    }
 
     @Override
-    public int compareTo(Object o) {
+    public Object call() throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+    
+       
+
     
     
 
