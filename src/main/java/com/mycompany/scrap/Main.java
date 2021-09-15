@@ -12,9 +12,13 @@ import java.util.concurrent.Future;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 
 public class Main {
-
+    
     public static void main(String[] args) {
 
         //Executor Service
@@ -25,25 +29,47 @@ public class Main {
 
         //Creación de lista para almacenar los resultados de tipo Future
         List<Future<Resultado>> listaResultados = null;
-
-        for (int i = 0; i < 10; i++) {
-            Tarea tarea = new Tarea("https://www.conversormonedas.com/valor-peso-argentino.php", "a", i, ("Tarea " + i));
-            tareasARealizar.add(tarea);
-        }
-
+        
         try {
             //Se obtienen los resultados
             listaResultados = executor.invokeAll(tareasARealizar);
         } catch (InterruptedException ex) {
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
         }
-
+        
     }
-
+    
     private static List<Tarea> cargaInicial() {
 
-        return null;
+        //Declaración de variables y ruta del archivo de texto
+        String path = "C:\\Users\\MARTIN\\Documents\\NetBeansProjects\\Scrap\\src\\main\\java\\com\\mycompany\\scrap\\Lectura\\cargaInicial.txt";
+        int nroTarea;
+        String tagNombre, tagPrecio, bfRead;
 
+        //Creación de lista de tareas callable
+        List<Tarea> tareasARealizar = new ArrayList<>();
+        
+        try {
+            //Lectura del archivo de texto
+            BufferedReader bf = new BufferedReader(new FileReader(path));
+            
+            while ((bfRead = bf.readLine()) != null) {
+                
+                String[] atributos = bfRead.split(",");
+                
+                nroTarea = Integer.parseInt(atributos[0]);
+                tagNombre = atributos[1];
+                tagPrecio = atributos[2];
+                
+                Tarea nuevaTarea = new Tarea(nroTarea, tagNombre, tagPrecio);
+                
+                tareasARealizar.add(nuevaTarea);
+                
+            }
+            
+        } catch (IOException ex) {
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return tareasARealizar;
     }
-
 }
