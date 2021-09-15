@@ -18,7 +18,6 @@ public class Tarea implements Callable<Resultado> {
     private final Connection conexion = Jsoup.connect(url);
     private final Document html = conexion.get();
     private final String tagPrecio;
-    private List<String> titulos;
     private final int numeroTarea;
     private final String tagMoneda;
 
