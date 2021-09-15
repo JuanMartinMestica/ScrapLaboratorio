@@ -45,9 +45,7 @@ public class Tarea implements Callable<Resultado> {
         moneda = moneda.substring(moneda.indexOf(">")+1, moneda.indexOf("</"));
         precio = precio.substring(precio.indexOf(">")+1, precio.indexOf("</"));
        
-        System.out.println("Un peso argentino equivale a: " + precio + " " + moneda);
-        
-        return null;
+        return new Resultado(moneda,precio);
     }
     
        
