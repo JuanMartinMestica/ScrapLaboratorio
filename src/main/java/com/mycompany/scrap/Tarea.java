@@ -6,7 +6,6 @@
 package com.mycompany.scrap;
 
 import java.io.IOException;
-import java.util.List;
 import java.util.concurrent.Callable;
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
