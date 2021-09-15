@@ -13,7 +13,6 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 
@@ -22,7 +21,7 @@ public class Main {
     public static void main(String[] args) {
 
         //Executor Service
-        ScheduledExecutorService executor = Executors.newScheduledThreadPool(2);
+        ScheduledExecutorService executor = Executors.newScheduledThreadPool(4);
 
         //Creación de array list para almacenar las tareas a realizar
         List<Tarea> tareasARealizar = cargaInicial();
@@ -36,6 +35,10 @@ public class Main {
         } catch (InterruptedException ex) {
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
+
+        executor.shutdown();
+        
         
     }
     
@@ -61,6 +64,7 @@ public class Main {
                 tagNombre = atributos[1];
                 tagPrecio = atributos[2];
                 
+                //Creación de tarea nueva y se suma a la lista
                 Tarea nuevaTarea = new Tarea(nroTarea, tagNombre, tagPrecio);
                 
                 tareasARealizar.add(nuevaTarea);
