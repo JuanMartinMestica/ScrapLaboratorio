@@ -16,10 +16,13 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.concurrent.ExecutionException;
+import org.jsoup.Connection;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
 
 public class Main {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
 
         //Executor Service
         ScheduledExecutorService executor = Executors.newScheduledThreadPool(9);
@@ -52,12 +55,17 @@ public class Main {
         }
     }
 
-    private static List<Tarea> cargaInicial() {
+    private static List<Tarea> cargaInicial() throws Exception {
 
         //Declaración de variables y ruta del archivo de texto
-        String path = "C:\\Users\\MARTIN\\Documents\\NetBeansProjects\\Scrap\\src\\main\\java\\com\\mycompany\\scrap\\Lectura\\cargaInicial.txt";
+        String path = "C:\\Users\\Fernando\\Documents\\NetBeansProjects\\ScrapLaboratorio\\src\\main\\java\\com\\mycompany\\scrap\\Lectura\\cargaInicial.txt";
         int nroTarea;
         String tagNombre, tagPrecio, bfRead;
+
+        String url = "https://www.conversormonedas.com/valor-peso-argentino.php";
+        Connection conexion = Jsoup.connect(url);
+
+        Document html = conexion.get();
 
         //Creación de lista de tareas callable
         List<Tarea> tareasARealizar = new ArrayList<>();
@@ -75,7 +83,7 @@ public class Main {
                 tagPrecio = atributos[2];
 
                 //Creación de tarea nueva y se suma a la lista
-                Tarea nuevaTarea = new Tarea(nroTarea, tagNombre, tagPrecio);
+                Tarea nuevaTarea = new Tarea(nroTarea, tagNombre, tagPrecio, html);
 
                 tareasARealizar.add(nuevaTarea);
 
