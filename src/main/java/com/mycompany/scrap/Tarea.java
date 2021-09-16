@@ -5,27 +5,22 @@
  */
 package com.mycompany.scrap;
 
-import java.io.IOException;
 import java.util.concurrent.Callable;
-import org.jsoup.Connection;
-import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
 public class Tarea implements Callable<Resultado> {
 
-    private final String url = "https://www.conversormonedas.com/valor-peso-argentino.php";
-    private final Connection conexion = Jsoup.connect(url);
-    private final Document html = conexion.get();
     private final String tagPrecio;
     private final int numeroTarea;
     private final String tagMoneda;
-
+    private final Document html;
 
     //Se crea constructor y se conecta tarea a la url de la página
-    public Tarea(int numeroTarea, String tagMoneda, String tagPrecio) throws IOException {
+    public Tarea(int numeroTarea, String tagMoneda, String tagPrecio, Document html) {
         this.tagPrecio = tagPrecio;
         this.numeroTarea = numeroTarea;
         this.tagMoneda = tagMoneda;
+        this.html = html;
     }
 
     @Override
