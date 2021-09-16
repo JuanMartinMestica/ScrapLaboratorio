@@ -25,7 +25,7 @@ public class Main {
     public static void main(String[] args) throws Exception {
 
         //Executor Service
-        ScheduledExecutorService executor = Executors.newScheduledThreadPool(9);
+        ScheduledExecutorService executor = Executors.newScheduledThreadPool(4);
 
         //Creación de array list para almacenar las tareas a realizar
         List<Tarea> tareasARealizar = cargaInicial();
@@ -42,15 +42,16 @@ public class Main {
 
         executor.shutdown();
 
-        System.out.println("=======Moneda=======||======Un peso equivale a =========");
+        System.out.println("\n======Un peso equivale a ========= || =======Moneda=======||");
+    
 
         for (int i = 0; i < listaResultados.size(); i++) {
             Future<Resultado> future = listaResultados.get(i);
             try {
                 Resultado result = future.get();
-                System.out.println(result.getNombreMoneda() + "         " + result.getPrecioMoneda());
+                System.out.print(result.getPrecioMoneda());
+                System.out.println("                                    " + result.getNombreMoneda());
             } catch (InterruptedException | ExecutionException e) {
-                e.printStackTrace();
             }
         }
     }
@@ -58,7 +59,7 @@ public class Main {
     private static List<Tarea> cargaInicial() throws Exception {
 
         //Declaración de variables y ruta del archivo de texto
-        String path = "C:\\Users\\Fernando\\Documents\\NetBeansProjects\\ScrapLaboratorio\\src\\main\\java\\com\\mycompany\\scrap\\Lectura\\cargaInicial.txt";
+        String path = "C:\\Users\\MARTIN\\Documents\\NetBeansProjects\\Scrap\\src\\main\\java\\com\\mycompany\\scrap\\Lectura\\cargaInicial.txt";
         int nroTarea;
         String tagNombre, tagPrecio, bfRead;
 
