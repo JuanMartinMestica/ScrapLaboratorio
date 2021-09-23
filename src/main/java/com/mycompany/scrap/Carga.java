@@ -22,7 +22,7 @@ import org.jsoup.nodes.Document;
  */
 public class Carga {
 
-    public static List<Tarea> cargaInicial() throws Exception {
+    public List<Tarea> cargaInicial() throws Exception {
 
         //Declaración de variables y ruta del archivo de texto
         String path = "C:\\Users\\MARTIN\\Documents\\NetBeansProjects\\Scrap\\src\\main\\java\\com\\mycompany\\scrap\\Lectura\\cargaInicial.txt";
