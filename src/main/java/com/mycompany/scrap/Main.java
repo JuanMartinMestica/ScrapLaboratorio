@@ -23,12 +23,13 @@ import org.jsoup.nodes.Document;
 public class Main {
 
     public static void main(String[] args) throws Exception {
+        Carga cargador = new Carga();
 
         //Executor Service
         ScheduledExecutorService executor = Executors.newScheduledThreadPool(4);
 
         //Creación de array list para almacenar las tareas a realizar
-        List<Tarea> tareasARealizar = cargaInicial();
+        List<Tarea> tareasARealizar = cargador.cargaInicial();
 
         //Creación de lista para almacenar los resultados de tipo Future
         List<Future<Resultado>> listaResultados = null;
@@ -43,7 +44,6 @@ public class Main {
         executor.shutdown();
 
         System.out.println("\n======Un peso equivale a ========= || =======Moneda=======||");
-    
 
         for (int i = 0; i < listaResultados.size(); i++) {
             Future<Resultado> future = listaResultados.get(i);
@@ -56,43 +56,4 @@ public class Main {
         }
     }
 
-    private static List<Tarea> cargaInicial() throws Exception {
-
-        //Declaración de variables y ruta del archivo de texto
-        String path = "C:\\Users\\MARTIN\\Documents\\NetBeansProjects\\Scrap\\src\\main\\java\\com\\mycompany\\scrap\\Lectura\\cargaInicial.txt";
-        int nroTarea;
-        String tagNombre, tagPrecio, bfRead;
-
-        String url = "https://www.conversormonedas.com/valor-peso-argentino.php";
-        Connection conexion = Jsoup.connect(url);
-
-        Document html = conexion.get();
-
-        //Creación de lista de tareas callable
-        List<Tarea> tareasARealizar = new ArrayList<>();
-
-        try {
-            //Lectura del archivo de texto
-            BufferedReader bf = new BufferedReader(new FileReader(path));
-
-            while ((bfRead = bf.readLine()) != null) {
-
-                String[] atributos = bfRead.split(",");
-
-                nroTarea = Integer.parseInt(atributos[0]);
-                tagNombre = atributos[1];
-                tagPrecio = atributos[2];
-
-                //Creación de tarea nueva y se suma a la lista
-                Tarea nuevaTarea = new Tarea(nroTarea, tagNombre, tagPrecio, html);
-
-                tareasARealizar.add(nuevaTarea);
-
-            }
-
-        } catch (IOException ex) {
-            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return tareasARealizar;
-    }
 }
